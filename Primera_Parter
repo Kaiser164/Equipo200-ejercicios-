@@ -1,2 +1,29 @@
+import java.sql.*;
 
-2
+public class Conexion {
+    Connection cn;
+    public Conexion() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/bd_inst", "root", "");
+        } catch (Exception e) {
+            System.err.println("Error: " + e);
+        }
+    }
+
+    public void obtenerDatosAlumnos() {
+        Statement st;
+        ResultSet rs;
+        try {
+            st =  cn.createStatement();
+            rs = st.executeQuery("SELECT * FROM alumnos");
+            while (rs.next()) {
+                System.out.println(rs.getInt("ID") + " " + rs.getString("NombreAlumno") + " " + rs.getString("Grupo"));
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
