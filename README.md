@@ -1,13 +1,16 @@
 # Equipo200-ejercicios-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package contrato;
-
 import java.awt.event.ActionEvent;
+import javax.swing.GroupLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.Timer;
+
 
 /**
  *
@@ -15,10 +18,25 @@ import javax.swing.JOptionPane;
  */
 public class contra extends javax.swing.JPanel {
 
-    /**
-     * Creates new form contra
-     */
+    
+    Contrato sellos;
+    String Item = "";
+   
+ //esto es lo nuevo  ##########################################################################
+	
+	
+  private long horasDormirSegundos; // Número de segundos que el usuario planea dormir
+   private long tiempoInicioSueno=0; // Tiempo en milisegundos en el que se inicia el sueño
+
+    	
+    private Timer timer; // Timer para el cronómetro
+    private int horasDormir; // Número de horas que el usuario planea dormir
+    private int horasTranscurridas; // Número de horas transcurridas
+		
+/////######################################################################################### 
+    
     public contra() {
+        
         initComponents();
         boxUno.addItem("Nutricion");
         boxUno.addItem("Sueno");
@@ -27,59 +45,40 @@ public class contra extends javax.swing.JPanel {
         boxUno.addItem("Salud");
         boxUno.addItem("Finanzas");
         
-        
-         // Agregar ActionListener al JComboBox boxUno
-        boxUno.addActionListener(new ActionListener() {
+        sellos = new Contrato();
+//######################################################################################################
+    // Inicializar el timer con un ActionListener para contar las horas
+        timer = new Timer(1000, new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                // Obtener el ítem seleccionado
-                String itemSeleccionado = (String) boxUno.getSelectedItem();
-                
-                // Realizar acciones según el ítem seleccionado
-                switch(itemSeleccionado) {
-                    case "Nutricion":
-                        // Acciones para Nutricion
-                        JOptionPane.showMessageDialog(null, "Seleccionaste Nutricion");
-                        break;
-                    case "Sueno":
-                        // Acciones para Sueno
-                        JOptionPane.showMessageDialog(null, "Seleccionaste Sueno");
-                        // Solicitar al usuario la cantidad de horas de sueño
-			String horasSueno = JOptionPane.showInputDialog(null, "Por favor ingresa la cantidad de horas que planeas dormir:");
+                // Incrementar el contador de horas transcurridas
+                horasTranscurridas++;
 
-			// Validar si se ingresó un valor
-			if (horasSueno != null && !horasSueno.isEmpty()) {
-			// Realizar acciones con la cantidad de horas de sueño
-			JOptionPane.showMessageDialog(null, "Seleccionaste Sueno y planeas dormir " + horasSueno + " horas.");
-                        } else {
-			// El usuario canceló o no ingresó un valor, manejar según sea necesario
-			JOptionPane.showMessageDialog(null, "No ingresaste la cantidad de horas de sueño.");
-						}
-                        break;
-                    case "Productividad":
-                        // Acciones para Productividad
-                        JOptionPane.showMessageDialog(null, "Seleccionaste Productividad");
-                        break;
-                    case "Felicidad":
-                        // Acciones para Felicidad
-                        JOptionPane.showMessageDialog(null, "Seleccionaste Felicidad");
-                        break;
-                    case "Salud":
-                        // Acciones para Salud
-                        JOptionPane.showMessageDialog(null, "Seleccionaste Salud");
-                        break;
-                    case "Finanzas":
-                        // Acciones para Finanzas
-                        JOptionPane.showMessageDialog(null, "Seleccionaste Finanzas");
-                        break;
-                    default:
-                        break;
+                // Actualizar la interfaz de usuario para mostrar las horas transcurridas
+                // Aquí debes tener un JLabel o JTextArea donde mostrar el tiempo transcurrido
+                // Supongamos que tienes un JLabel llamado labelTiempo
+                labelTiempo.setText("Horas transcurridas: " + horasTranscurridas);
+
+                // Verificar si se han alcanzado las horas de sueño planeadas
+                if (horasTranscurridas >= horasDormir) {
+                    // Detener el timer
+                    timer.stop();
+
+                    // Reproducir un sonido para notificar que se alcanzaron las horas de sueño
+                    // Puedes usar la clase javax.sound.sampled para reproducir un sonido
+
+                    // Mostrar un mensaje al usuario
+                    JOptionPane.showMessageDialog(null, "Has alcanzado tus horas de sueño planificadas");
                 }
             }
-        });
+		 });
+        
+//#################################################################################################################         
+
     }
+
 // Aqui dejare la variable global de "ITEM"
-    String Item = "";
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,15 +98,15 @@ public class contra extends javax.swing.JPanel {
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jPanel3 = new javax.swing.JPanel();
-        boxUno = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        boxUno = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        labelTiempo = new javax.swing.JLabel();
 
         jMenu1.setText("jMenu1");
 
@@ -139,19 +138,11 @@ public class contra extends javax.swing.JPanel {
 
         jMenuItem2.setText("jMenuItem2");
 
-        boxUno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "_", "Nutricion", "Sueno", "Productividad", "Felicidad", "Salud", "Finanzas" }));
-        boxUno.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                boxUnoItemStateChanged(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
         jLabel1.setText("Objetivos:");
 
-        jLabel2.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
-        jLabel2.setText("Registro");
-        jLabel2.setToolTipText("");
+        jLabel3.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
+        jLabel3.setText("Usuario");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,8 +150,12 @@ public class contra extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Century", 1, 24)); // NOI18N
-        jLabel3.setText("Usuario");
+        boxUno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "_", "Nutricion", "Sueno", "Productividad", "Felicidad", "Salud", "Finanzas" }));
+        boxUno.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                boxUnoItemStateChanged(evt);
+            }
+        });
 
         jButton1.setText("Registrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -169,87 +164,199 @@ public class contra extends javax.swing.JPanel {
             }
         });
 
+        jButton3.setText("Salir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         jButton2.setText("Eliminar");
 
-        jButton3.setText("Salir");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton1)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(boxUno, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(160, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boxUno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(40, 40, 40)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(35, 35, 35))
-        );
+        jLabel2.setFont(new java.awt.Font("Showcard Gothic", 1, 24)); // NOI18N
+        jLabel2.setText("Registro");
+        jLabel2.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(boxUno, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(jButton1)
+                .addGap(21, 21, 21))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(jButton2)
+                        .addGap(84, 84, 84)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(labelTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jLabel2)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(boxUno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(labelTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(146, 146, 146))
         );
     }// </editor-fold>                        
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-       //Se configuro el menu de las opciones desplegables al que llamamos "BoxUno"
-        Item = boxUno.getSelectedItem().toString();
-        JOptionPane.showMessageDialog(null, "El item seleccionado es: "+ Item);
-        
+        //Se configuro el menu de las opciones desplegables al que llamamos "BoxUno"
+
     }                                        
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
     }                                           
 
-    
-    //asigna los datos y los configura 
+   //asigna los datos y los configura 
     private void boxUnoItemStateChanged(java.awt.event.ItemEvent evt) {                                        
-        String Item = (String)boxUno.getSelectedItem();
+        // Verificar si se seleccionó un elemento
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            // Obtener el ítem seleccionado
+            String itemSeleccionado = (String) boxUno.getSelectedItem();
+            // Realizar acciones según el ítem seleccionado
+            switch(itemSeleccionado) {
+                case "Nutricion":
+                // Acciones para Nutricion
+                JOptionPane.showMessageDialog(null, "Seleccionaste Nutricion");
+                break;
+//########################################################################################################       
+                case "Sueno":
+                     JOptionPane.showMessageDialog(null, "Seleccionaste Sueno");
+
+                    // Solicitar al usuario la cantidad de horas de sueño
+                    String horasSueno = JOptionPane.showInputDialog(null, "Por favor ingresa la cantidad de horas que planeas dormir:");
+
+                    // Validar si se ingresó un valor
+                    if (horasSueno != null && !horasSueno.isEmpty()) {
+                        // Convertir el valor ingresado a entero
+                        horasDormir = Integer.parseInt(horasSueno);
+
+                        // Inicializar el contador de horas transcurridas
+                        horasTranscurridas = 0;
+
+                        // Iniciar el timer
+                        timer.start();
+                    } else {
+                        // El usuario canceló o no ingresó un valor, manejar según sea necesario
+                        JOptionPane.showMessageDialog(null, "No ingresaste la cantidad de horas de sueño.");
+                    }
+                    break;
+                   
+//########################################################################################################		
+                
+               
+                
+                /*
+                case "Sueno":
+                // Acciones para Sueno
+                JOptionPane.showMessageDialog(null, "Seleccionaste Sueno");
+                // Solicitar al usuario la cantidad de horas de sueño
+                String horasSueno = JOptionPane.showInputDialog(null, "Por favor ingresa la cantidad de horas que planeas dormir:");
+
+                // Validar si se ingresó un valor
+                if (horasSueno != null && !horasSueno.isEmpty()) {
+                    // Realizar acciones con la cantidad de horas de sueño
+                    JOptionPane.showMessageDialog(null, "Seleccionaste Sueno y planeas dormir " + horasSueno + " horas.");
+                } else {
+                    // El usuario canceló o no ingresó un valor, manejar según sea necesario
+                    JOptionPane.showMessageDialog(null, "No ingresaste la cantidad de horas de sueño.");
+                }
+                break;
+                */
+                case "Productividad":
+                // Acciones para Productividad
+                JOptionPane.showMessageDialog(null, "Seleccionaste Productividad");
+                break;
+                case "Felicidad":
+                // Acciones para Felicidad
+                JOptionPane.showMessageDialog(null, "Seleccionaste Felicidad");
+                break;
+                case "Salud":
+                // Acciones para Salud
+                JOptionPane.showMessageDialog(null, "Seleccionaste Salud");
+                break;
+                case "Finanzas":
+                // Acciones para Finanzas
+                JOptionPane.showMessageDialog(null, "Seleccionaste Finanzas");
+                break;
+                 default:
+                break;
+            }
+        }
     }                                       
+//SALIR
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+        System.exit(0);
+    }                                        
 
+    
+  
+  
+   
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Mi Aplicación");
 
+        // Crear una instancia del panel contra
+        contra panel = new contra();
+        
+        frame.add(panel);
+
+        // Configurar el comportamiento al cerrar la ventana
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Ajustar el tamaño del marco automáticamente según el contenido
+        frame.pack();
+
+        // Hacer visible el marco
+        frame.setVisible(true);
+
+// Crear y configurar el marco principal
+        contra principal = new contra();
+        
+        principal.setVisible(true);
+
+    }
+    
     // Variables declaration - do not modify                     
     private javax.swing.JComboBox<String> boxUno;
     private javax.swing.JButton jButton1;
@@ -268,7 +375,10 @@ public class contra extends javax.swing.JPanel {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelTiempo;
     // End of variables declaration                   
+
+
+
 }
