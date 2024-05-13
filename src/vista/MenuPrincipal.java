@@ -1,9 +1,14 @@
 package vista;
+
 import controlador.UsuarioController;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 import modelo.Usuario;
+import modelo.UsuarioTableModel;
+
 public class MenuPrincipal extends javax.swing.JFrame {
-    UsuarioController userController = new UsuarioController();
 
     /**
      * Creates new form MenuPrincipal
@@ -21,26 +26,45 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         regUsuariosMenu = new javax.swing.JMenuItem();
         ElUsuariosMenu = new javax.swing.JMenuItem();
-        VerUsuariosMenu = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        FelicidadMenu = new javax.swing.JMenu();
         ListarChecksFelicidadItem = new javax.swing.JMenuItem();
-        consultarEstadoFelicidadItem = new javax.swing.JMenuItem();
-        FinanzasMenu = new javax.swing.JMenu();
-        NutricionMenu = new javax.swing.JMenu();
-        ProductividadMenu = new javax.swing.JMenu();
-        SaludMenu = new javax.swing.JMenu();
-        SueñoMenu = new javax.swing.JMenu();
+        ListarChecksFinanzasItem = new javax.swing.JMenuItem();
+        ListarChecksNutricionItem = new javax.swing.JMenuItem();
+        ListarChecksProductividadItem = new javax.swing.JMenuItem();
+        ListarChecksSaludItem = new javax.swing.JMenuItem();
+        ListarChecksSuenoItem = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        consultaContratos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menú principal");
         setName("menuPrincipal"); // NOI18N
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+
+        jLabel1.setText("Listado de Usuarios");
+
+        jTable1.setModel(UsuarioController.verTodos());
+        jScrollPane1.setViewportView(jTable1);
 
         jMenu1.setText("Usuarios");
 
@@ -60,42 +84,66 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(ElUsuariosMenu);
 
-        VerUsuariosMenu.setText("Ver usuarios");
-        VerUsuariosMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VerUsuariosMenuActionPerformed(evt);
-            }
-        });
-        jMenu1.add(VerUsuariosMenu);
-
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Contratos");
+        jMenu2.setText("Operaciones Contratos");
 
-        FelicidadMenu.setText("Felicidad");
+        ListarChecksFelicidadItem.setText("Registrar checks de Felicidad");
+        ListarChecksFelicidadItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarChecksFelicidadItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ListarChecksFelicidadItem);
 
-        ListarChecksFelicidadItem.setText("Listar Checks");
-        FelicidadMenu.add(ListarChecksFelicidadItem);
+        ListarChecksFinanzasItem.setText("Registrar checks de Finanzas");
+        ListarChecksFinanzasItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarChecksFinanzasItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ListarChecksFinanzasItem);
 
-        consultarEstadoFelicidadItem.setText("Consultar estado");
-        FelicidadMenu.add(consultarEstadoFelicidadItem);
+        ListarChecksNutricionItem.setText("Registrar checks de Nutrición");
+        ListarChecksNutricionItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarChecksNutricionItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ListarChecksNutricionItem);
 
-        jMenu2.add(FelicidadMenu);
+        ListarChecksProductividadItem.setText("Registrar checks de Productividad");
+        ListarChecksProductividadItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarChecksProductividadItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ListarChecksProductividadItem);
 
-        FinanzasMenu.setText("Finanzas");
-        jMenu2.add(FinanzasMenu);
+        ListarChecksSaludItem.setText("Registrar checks de Salud");
+        ListarChecksSaludItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarChecksSaludItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ListarChecksSaludItem);
 
-        NutricionMenu.setText("Nutrición");
-        jMenu2.add(NutricionMenu);
+        ListarChecksSuenoItem.setText("Registrar checks de Sueño");
+        ListarChecksSuenoItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ListarChecksSuenoItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(ListarChecksSuenoItem);
+        jMenu2.add(jSeparator1);
 
-        ProductividadMenu.setText("Productividad");
-        jMenu2.add(ProductividadMenu);
-
-        SaludMenu.setText("Salud");
-        jMenu2.add(SaludMenu);
-
-        SueñoMenu.setText("Sueño");
-        jMenu2.add(SueñoMenu);
+        consultaContratos.setText("Consultar Aprobación");
+        consultaContratos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consultaContratosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(consultaContratos);
 
         jMenuBar1.add(jMenu2);
 
@@ -105,29 +153,112 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 502, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void regUsuariosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regUsuariosMenuActionPerformed
-        String usuario=JOptionPane.showInputDialog("Escriba el nombre del usuario a ingresar:");
-        this.userController.agregarUsuario(usuario);
+        String usuario = JOptionPane.showInputDialog("Escriba el nombre del usuario a ingresar:");
+        UsuarioController.agregarUsuario(usuario);
     }//GEN-LAST:event_regUsuariosMenuActionPerformed
 
     private void ElUsuariosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElUsuariosMenuActionPerformed
-        String usuario=JOptionPane.showInputDialog("Escriba el nombre del usuario a eliminar:");
-        this.userController.eliminarUsuario(usuario);
+        String usuario = JOptionPane.showInputDialog("Escriba el nombre del usuario a eliminar:");
+        UsuarioController.eliminarUsuario(usuario);
     }//GEN-LAST:event_ElUsuariosMenuActionPerformed
 
-    private void VerUsuariosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerUsuariosMenuActionPerformed
-        System.out.println(this.userController.toString());
-    }//GEN-LAST:event_VerUsuariosMenuActionPerformed
+    private void ListarChecksFelicidadItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarChecksFelicidadItemActionPerformed
+        RegistroContratoFelicidad regFe = new RegistroContratoFelicidad();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width / 2) - (regFe.getWidth() / 2);
+        int centerY = (screenSize.height / 2) - (regFe.getHeight() / 2);
+        regFe.setLocation(centerX, centerY);
+        regFe.show();
+    }//GEN-LAST:event_ListarChecksFelicidadItemActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+
+    }//GEN-LAST:event_formFocusGained
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        ActualizaModeloTabla();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void ListarChecksFinanzasItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarChecksFinanzasItemActionPerformed
+        RegistroContratoFinanzas regFi = new RegistroContratoFinanzas();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width / 2) - (regFi.getWidth() / 2);
+        int centerY = (screenSize.height / 2) - (regFi.getHeight() / 2);
+        regFi.setLocation(centerX, centerY);
+        regFi.show();
+    }//GEN-LAST:event_ListarChecksFinanzasItemActionPerformed
+
+    private void ListarChecksProductividadItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarChecksProductividadItemActionPerformed
+        RegistroContratoProductividad regPro = new RegistroContratoProductividad();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width / 2) - (regPro.getWidth() / 2);
+        int centerY = (screenSize.height / 2) - (regPro.getHeight() / 2);
+        regPro.setLocation(centerX, centerY);
+        regPro.show();
+    }//GEN-LAST:event_ListarChecksProductividadItemActionPerformed
+
+    private void consultaContratosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consultaContratosActionPerformed
+        ConsultarContratos consCont = new ConsultarContratos();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width / 2) - (consCont.getWidth() / 2);
+        int centerY = (screenSize.height / 2) - (consCont.getHeight() / 2);
+        consCont.setLocation(centerX, centerY);
+        consCont.show();
+    }//GEN-LAST:event_consultaContratosActionPerformed
+
+    private void ListarChecksSaludItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarChecksSaludItemActionPerformed
+        RegistroContratoSalud RegistroSalud = new RegistroContratoSalud();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width / 2) - (RegistroSalud.getWidth() / 2);
+        int centerY = (screenSize.height / 2) - (RegistroSalud.getHeight() / 2);
+        RegistroSalud.setLocation(centerX, centerY);
+        RegistroSalud.show();
+    }//GEN-LAST:event_ListarChecksSaludItemActionPerformed
+
+    private void ListarChecksSuenoItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarChecksSuenoItemActionPerformed
+        RegistroContratoSueno RegistroSueno = new RegistroContratoSueno();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width / 2) - (RegistroSueno.getWidth() / 2);
+        int centerY = (screenSize.height / 2) - (RegistroSueno.getHeight() / 2);
+        RegistroSueno.setLocation(centerX, centerY);
+        RegistroSueno.show();
+    }//GEN-LAST:event_ListarChecksSuenoItemActionPerformed
+
+    private void ListarChecksNutricionItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarChecksNutricionItemActionPerformed
+        RegistroContratoNutricion RegistroNutricion = new RegistroContratoNutricion();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int centerX = (screenSize.width / 2) - (RegistroNutricion.getWidth() / 2);
+        int centerY = (screenSize.height / 2) - (RegistroNutricion.getHeight() / 2);
+        RegistroNutricion.setLocation(centerX, centerY);
+        RegistroNutricion.show();
+    }//GEN-LAST:event_ListarChecksNutricionItemActionPerformed
+
+    private void ActualizaModeloTabla() {
+        jTable1.setModel(UsuarioController.verTodos());
+    }
 
     /**
      * @param args the command line arguments
@@ -159,25 +290,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuPrincipal().setVisible(true);
+                MenuPrincipal frame = new MenuPrincipal();
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                int centerX = (screenSize.width / 2) - (frame.getWidth() / 2);
+                int centerY = (screenSize.height / 2) - (frame.getHeight() / 2);
+                frame.setLocation(centerX, centerY);
+                frame.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem ElUsuariosMenu;
-    private javax.swing.JMenu FelicidadMenu;
-    private javax.swing.JMenu FinanzasMenu;
     private javax.swing.JMenuItem ListarChecksFelicidadItem;
-    private javax.swing.JMenu NutricionMenu;
-    private javax.swing.JMenu ProductividadMenu;
-    private javax.swing.JMenu SaludMenu;
-    private javax.swing.JMenu SueñoMenu;
-    private javax.swing.JMenuItem VerUsuariosMenu;
-    private javax.swing.JMenuItem consultarEstadoFelicidadItem;
+    private javax.swing.JMenuItem ListarChecksFinanzasItem;
+    private javax.swing.JMenuItem ListarChecksNutricionItem;
+    private javax.swing.JMenuItem ListarChecksProductividadItem;
+    private javax.swing.JMenuItem ListarChecksSaludItem;
+    private javax.swing.JMenuItem ListarChecksSuenoItem;
+    private javax.swing.JMenuItem consultaContratos;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JMenuItem regUsuariosMenu;
     // End of variables declaration//GEN-END:variables
 }

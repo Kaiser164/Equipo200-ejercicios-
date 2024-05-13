@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.Usuario;
+import modelo.UsuarioTableModel;
 
 public class UsuarioController {
 
-    private final List<Usuario> usuarios;
+    public static final List<Usuario> usuarios = new ArrayList<>();
+    public static UsuarioTableModel users = null;
 
-    public UsuarioController() {
-        this.usuarios = new ArrayList<>();
-    }
-
-    public void agregarUsuario(String nombreUsuario) {
+    public static void agregarUsuario(String nombreUsuario) {
         Usuario usuarioExistente = buscarUsuario(nombreUsuario);
         if (usuarioExistente == null) {
             Usuario nuevoUsuario = new Usuario(nombreUsuario);
@@ -24,7 +22,7 @@ public class UsuarioController {
         }
     }
 
-    public void eliminarUsuario(String nombreUsuario) {
+    public static void eliminarUsuario(String nombreUsuario) {
         boolean usuarioEliminado = usuarios.removeIf(usuario -> usuario.getNombre().equals(nombreUsuario));
         if (usuarioEliminado) {
             JOptionPane.showMessageDialog(null, "Usuario " + nombreUsuario + " eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -33,7 +31,7 @@ public class UsuarioController {
         }
     }
 
-    public Usuario buscarUsuario(String nombreUsuario) {
+    public static Usuario buscarUsuario(String nombreUsuario) {
         for (Usuario usuario : usuarios) {
             if (usuario.getNombre().equals(nombreUsuario)) {
                 return usuario;
@@ -42,26 +40,24 @@ public class UsuarioController {
         return null;
     }
 
-    public Boolean consultarEstadoContrato(String nombreUsuario, String nombreContrato) {
+    public static Boolean consultarEstadoContrato(String nombreUsuario, String nombreContrato) {
         for (Usuario usuario : usuarios) {
             if (usuario.getNombre().equals(nombreUsuario)) {
-                if (nombreContrato.equals("Felicidad")) {
-                    return usuario.getContratoFelicidad().cumpleContrato();
-                }
-                if (nombreContrato.equals("Finanzas")) {
-                    return usuario.getContratoFinanzas().cumpleContrato();
-                }
-                if (nombreContrato.equals("Nutrición")) {
-                    return usuario.getContratoNutricion().cumpleContrato();
-                }
-                if (nombreContrato.equals("Productividad")) {
-                    return usuario.getContratoProductividad().cumpleContrato();
-                }
-                if (nombreContrato.equals("Salud")) {
-                    return usuario.getContratoSalud().cumpleContrato();
-                }
-                if (nombreContrato.equals("Sueño")) {
-                    return usuario.getContratoSueno().cumpleContrato();
+                switch (nombreContrato) {
+                    case "Felicidad":
+                        return usuario.getContratoFelicidad().cumpleContrato();
+                    case "Finanzas":
+                        return usuario.getContratoFinanzas().cumpleContrato();
+                    case "Nutrición":
+                        return usuario.getContratoNutricion().cumpleContrato();
+                    case "Productividad":
+                        return usuario.getContratoProductividad().cumpleContrato();
+                    case "Salud":
+                        return usuario.getContratoSalud().cumpleContrato();
+                    case "Sueño":
+                        return usuario.getContratoSueno().cumpleContrato();
+                    default:
+                        return null;
                 }
             }
         }
@@ -82,6 +78,11 @@ public class UsuarioController {
         }
 
         return sb.toString();
+    }
+
+    public static UsuarioTableModel verTodos() {
+        users = new UsuarioTableModel(usuarios);
+        return users;
     }
 
 }
