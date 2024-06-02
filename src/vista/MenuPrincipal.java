@@ -177,12 +177,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void regUsuariosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regUsuariosMenuActionPerformed
         String usuario = JOptionPane.showInputDialog("Escriba el nombre del usuario a ingresar:");
-        UsuarioController.agregarUsuario(usuario);
+        if (usuario != null && !usuario.trim().isEmpty()) {
+            UsuarioController.agregarUsuario(usuario);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ingresó ningún nombre de usuario. Acción cancelada.");
+        }
     }//GEN-LAST:event_regUsuariosMenuActionPerformed
 
     private void ElUsuariosMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElUsuariosMenuActionPerformed
         String usuario = JOptionPane.showInputDialog("Escriba el nombre del usuario a eliminar:");
-        UsuarioController.eliminarUsuario(usuario);
+        if (usuario != null && !usuario.trim().isEmpty()) {
+            UsuarioController.eliminarUsuario(usuario);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se ingresó ningún nombre de usuario. Acción cancelada.");
+        }
     }//GEN-LAST:event_ElUsuariosMenuActionPerformed
 
     private void ListarChecksFelicidadItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarChecksFelicidadItemActionPerformed
